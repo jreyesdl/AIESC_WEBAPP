@@ -1,0 +1,125 @@
+ .lbl {
+       font-family: 'Englebert';
+       position:absolute;
+       top:16%;
+       left:27.5%;
+       font-size:5.6vw;
+       color:white;
+       font-weight:bolder;
+       white-space:nowrap;  
+   }
+   .bdy {
+       background-image: url('../images/aiesec6.jpg');
+       background-color: lightblue;
+       background-repeat: repeat;
+       background-size: 100%;
+       font-family: "Helvetica",Arial;
+       width:100%;
+       max-width:100%;
+   }
+   
+
+   .footer1 {
+    
+      width: 900px;
+      height: 120px;
+ 
+      position: absolute;
+      top: 80%;
+      left: 50%;
+ 
+      margin-top: -20px;   /* height/2 = 500px / 2 */
+      margin-left: -450px;  /* width/2 = 500px / 2 */
+     
+}
+  .footer {
+    
+      width: 900px;
+      height: 40px;
+ 
+      position: absolute;
+      top: 60%;
+      left: 50%;
+ 
+      margin-top: -20px;   /* height/2 = 500px / 2 */
+      margin-left: -450px;  /* width/2 = 500px / 2 */
+     
+}
+   .contenedor {
+     
+      width: 500px;
+      height: 500px;
+ 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+ 
+      margin-top: -250px;   /* height/2 = 500px / 2 */
+      margin-left: -250px;  /* width/2 = 500px / 2 */
+}
+   .btn {
+	   text-align:center;
+       font-weight: bold;
+       color: white;
+       background-color: rgba(183, 7, 43, 0.8);
+       border: none;
+       width: 250px;
+       height: 55px;
+       border-radius: 2px;
+       position:absolute;
+       top: 61.7%;
+       left: 24.5%;
+       transition-property: opacity, left;
+       transition-duration: 3s, 5s;
+	   border-radius:100px;
+   }
+   
+  .btn:hover {
+    background-color: rgba(183, 7, 43, 1);
+    }
+   .txt{
+       font-family:"Helvetica",Arial;
+       font-size: 15%;
+   }
+   .logo {
+       width: 220px;
+       height: 280px;
+       display: block;
+       border: none;
+       position: absolute;
+       top: 0%;;
+       left: 27.5%;
+   }
+   .inpt {
+       text-indent:10px;
+       font-family: "Helvetica",Arial;
+       font-size: 90%;
+       border-top-left-radius: 2px;
+       border-top-right-radius: 2px;
+       width: 220px;
+       height: 35px;
+       display: block;
+       border: none;
+       position: absolute;
+       top: 54.299%;;
+       left: 27.5%;
+   }
+   .inpt2 {
+       text-indent: 10px;
+       font-family: "Helvetica",Arial;
+       font-size: 90%;
+       border-bottom-left-radius: 2px;
+       border-bottom-right-radius: 2px;
+       width: 220px;
+       height: 35px;
+       border-bottom: none;
+       border-left: none;
+       border-right: none;
+       border-top: solid;
+       border-top-color: lightgray;
+       border-top-width: 1px;
+       display: block;
+       position: absolute;
+       top: 61.7%;
+       left: 27.5%;
+   }
