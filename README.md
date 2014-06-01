@@ -1,4 +1,4 @@
-AIESC_WEBAPP
+AIESEC_WEBAPP
 ============
 
 Web APP for AIESEC Guatemala
