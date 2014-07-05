@@ -9,6 +9,7 @@ google.project.aiesec.CLIENT_ID = '701424510160-upb8hkmvcem4kg7dgqi14a144q7ted5e
 google.project.aiesec.RESPONSE_TYPE = 'token id_token';
 google.project.aiesec.signedIn = false;
 google.project.aiesec.ROOT = 'https://aiesecapi.appspot.com/_ah/api';
+//google.project.aiesec.ROOT = 'http://localhost:1234/_ah/api';
 
 //API calls
 
@@ -25,6 +26,7 @@ function insertPost(title,img,post,userID) {
                 l.stop();
                 alertify.set({ delay: 2000 });
                 alertify.log("Post publicado correctamente.")
+                window.location = '/posts/'+resp.eID;
             }
             else
             {
@@ -60,9 +62,29 @@ function onError(){
     alertify.error("Ha ocurrido un error al enviar el post.")
 }
 
+function imageTobase64(imgElem) {
+    var canvas = document.createElement("canvas");
+    canvas.width = imgElem.clientWidth;
+    canvas.height = imgElem.clientHeight;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(imgElem, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL;
+}
+
+$(document).ready(function() {
+  $('#simple-menu').sidr();
+});
+
 $(document).ready(function(){
+$('#responsive-menu-button').sidr({
+            name: 'sidr-main',
+            source: '#navigation'
+});});
+
+$(document).ready(function(){
+     var l = Ladda.create(document.querySelector( 'button' ));
     $('#btnS').click(function (){            
-            var l = Ladda.create( document.querySelector( 'button' ) );
             try {
             var data = "";
             l.start();
@@ -76,14 +98,15 @@ $(document).ready(function(){
                 success: function(data,status,xhr){
                     var img;
                     if ($('#list').find('#imgS').length) {
-                        img = document.getElementById("list").children.imgS.src;
+                        var img = document.getElementById("list").children.imgS.src;
+                        img = img.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
                     }
                     else{
                         img = ""
                     }
                     var title = $('#txtTitle').val();
-                    var post =  $('#iddescpost').val();
-                    insertPost(title,img,post,data);
+                    var post = decodeURIComponent(escape(btoa($('#iddescpost').html())));
+                    insertPost(title,img,btoa(post),data);
                 },
                 error: function(){
                     onError();   
@@ -98,13 +121,31 @@ $(document).ready(function(){
     });
 });
 
+$(document).ready(function(){
+$('#li1').click(function() {
+    $('#li2').removeClass('selected');
+    $('#li3').removeClass('selected');
+    $(this).addClass('selected');
+});
+$('#li2').click(function() {
+    $('#li1').removeClass('selected');
+    $('#li3').removeClass('selected');
+    $(this).addClass('selected');
+});
+$('#li3').click(function() {
+    $('#li1').removeClass('selected');
+    $('#li2').removeClass('selected');
+    $(this).addClass('selected');
+});
+});
+
 function handleFileSelect(evt){
     var files = evt.target.files;
     var f = files[0];
     var reader = new FileReader();     
     reader.onload = (function(theFile){
         return function(e){
-            document.getElementById('list').innerHTML = ['<img id="imgS" src="', e.target.result,'" title=', theFile.name,' height= "250" width="400"/>'].join('');
+            document.getElementById('list').innerHTML = ['<img id="imgS" src="', e.target.result,'" title=', theFile.name,' height= "auto" width="400"/>'].join('');
         };
     })(f);       
     reader.readAsDataURL(f);
@@ -112,7 +153,10 @@ function handleFileSelect(evt){
 
 function init() {
     var callback = function(){
-        document.getElementById('file').addEventListener('change', handleFileSelect, false);
+        document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        
+        $(".editor").popline();
+        $(".editor").popline({position: 'fixed'});
     }
     gapi.client.load('userAPI','v1',callback, google.project.aiesec.ROOT);
 }

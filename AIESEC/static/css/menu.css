@@ -1,0 +1,89 @@
+.selected{
+    border-top-style: solid;
+    border-top-color: rgb(0,51,153);
+}
+
+#li1:hover{
+    border-top-style: solid;
+    border-top-color: rgb(0,51,153);
+}
+
+#li2:hover{
+    border-top-style: solid;
+    border-top-color: rgb(0,51,153);
+}
+
+#li3:hover{
+    border-top-style: solid;
+    border-top-color: rgb(0,51,153);
+}
+
+#Signout:hover{
+    text-decoration: underline;
+}
+
+#topBar, #topBar{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 7%;
+    z-index: 10;
+}
+    
+#topBar {
+    width: 100%;
+    height: 7%;
+    background-color:rgb(255,255,255);
+    color: #fff;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: 10;
+}
+
+#topBar li {
+    float: left;
+    position: relative;
+    height: 98%;
+    padding: 1.3% 2%
+}
+
+#topBar label{
+    float: right;
+    color: Gray;
+    text-transform: lowercase;
+    font: bold 11px Arial, Helvetica;
+    text-decoration: none;
+}
+
+#li1 a{
+    display: block;
+}
+
+#li2 a{
+    display: block;
+}
+
+#li3 a{
+    display: block;
+}
+
+#li1 a:hover{
+    color: rgb(0,51,153);
+}
+
+#li2 a:hover{
+    color: rgb(0,51,153);
+}
+
+#li3 a:hover{
+    color: rgb(0,51,153);
+}
+
+#topBar a {
+    float: left;
+    color: Gray;
+    text-transform: uppercase;
+    font: bold 12px Arial, Helvetica;
+    text-decoration: none;
+}

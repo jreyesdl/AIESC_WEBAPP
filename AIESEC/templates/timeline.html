@@ -1,0 +1,27 @@
+{% extends "newpost.html" %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+{% block head %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jsTimeline.js"></script>
+    <link rel="stylesheet" href="/css/styleLoadMoreButton.css">
+    <title>Page Title</title>
+{% endblock %}
+
+{% block body %}
+    <form method="post">
+        
+    </form>
+    <div style="width:100%;text-align:center" >
+        <br />
+        <br />
+        <input type="button" id="btnS" style="visibility:hidden" class="loadMore" value="Load More..." />
+    </div>
+    <script src="https://apis.google.com/js/client.js?onload=init">
+        function load() {
+            init();
+        }
+    </script>
+    <input type="hidden" id="hdnNextPage" value=""/>
+{% endblock %}
+</html>

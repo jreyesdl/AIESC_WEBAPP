@@ -13,6 +13,7 @@ google.project.aiesec.signedIn = false;
 google.project.aiesec.ROOT = 'https://aiesec-t2014.appspot.com/_ah/api';
 
 
+
 //Function that validates users and their domain
 google.project.aiesec.validUser = function(email){
     gapi.client.userAPI.user.login({'email': email }).execute(function(resp){

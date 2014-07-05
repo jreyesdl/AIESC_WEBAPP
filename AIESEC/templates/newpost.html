@@ -1,246 +1,174 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/stylesheetnewpost.css"/>
+    
+    <title>AIESEC GT</title>
+    <link rel="stylesheet" href="/css/header.css">
+
+    {% block head %}
+    
+ 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="/js/jsNewPost.js"></script> 
+    <script src="/js/jsNewPost.js"></script>
+    
+    <script type="text/javascript" src="/js/jquery.popline.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.popline.link.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.popline.decoration.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.popline.list.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.popline.justify.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.popline.blockformat.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.popline.social.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.popline.backcolor.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="/css/npost.css">
     <link rel="stylesheet" href="/css/ladda.min.css">
     <link rel="stylesheet" href="/css/alertify.core.css">     
     <link rel="stylesheet" href="/css/alertify.default.css">
-        
-        <meta charset="utf-8" />
-           
-           <ul id="topBar">
-                <li style="height: 100%;"><IMG SRC="/images/AIESEC_LOGO.png" style="height: 98%; position: relative; left: 1%;"></li>
-           </ul>
-           
-            <ul id="menu">
-                <li style="border-right-color: transparent;"></li>
-                <li><a href="/newpost">New Post</a></li>
-                <li><a href="/newpost">News</a></li>
-                <li><a href="/newpost">Metas</a></li>
-                <li style="float: right; border-right-color: transparent;"><a href="#">{{email}}</a>
-                    <ul>
-                    <li><a href="{{logouthref}}">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-    
-</head>
-<body style = "background-color: rgba(211, 211, 211, 0.33);">
-    
-    <form>
+    <link rel="stylesheet" type="text/css" href="/css/popclip.css" />
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/css/toggle-switch.css" />
+    <link rel="stylesheet" type="text/css" href="/css/page.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    {% endblock %}
+    <link rel="stylesheet" href="/css/jquery.sidr.light.css">
    
-        <div class="custom-input-file">
-            <input class="input-file" type="file" id="file" name="file"/>
-            ...
-        </div>
-        <button id="btnS" class="ladda-button" data-color="blue" data-style="zoom-out" style="position: absolute; top: 40%; left: 20%;" type="submit" );">Enviar</button> 
-        
-    <div class = "ipost">
-        <script type="text/javascript">
-            if (window.FileReader) 
-            {
-                //then your code goes here
-            } 
-            else 
-            {
-                alert('Su navegador no soporta el lector de archivos');
-            }
-        </script>
-        
-    <output id="list" class = "OutImage"></output>
+</head>
+<body>
 
-    </div>
-    <div class = "tpost">
-         <input id="txtTitle" type="text" id="idtitlepost" placeholder="Titulo del Post" pattern="^[a-zA-Z ][a-zA-Z0-9-_.]{8,20}$" required="required" class="titlepost" />
-    </div>
-    <div class = "dpost">
-        <input type="text" id="iddescpost" placeholder="Descripcion Post" pattern="^[a-zA-Z][a-zA-Z0-9-_.]{8,20}$" required="required" class="descpost" />
-    </div>
-    </form>
+    <header class="header">
+       <img src="/images/wObA1.png" width="160" height="20" />
+    </header>
+
+    {% block body %}
     
+        <div class="container">
+            <div class="flat-form">
+                <ul class="tabs">
+                    <li>
+                        <a href="#login" class="active" style="color:white;">Post</a><!--"-->
+                    </li>
+                    <li>
+                        <a href="#register" style="color:white">Metas</a>
+                    </li>
+                </ul>
+                <div id="login" class="form-action show">
+                    <h1>Post</h1>
+                    <p>
+                        LLena los espacios en blanco para poder publicar un post.
+                    </p>
+                    <form>
+                        <ul>
+                            <li>
+                                <input id="txtTitle" style="font-weight: bolder;" type="text" placeholder="Título" />
+                                <div class="lpost">  </div>
+                                <div class="custom-input-file">
+                                    <input class="input-file" type="file" id="files" name="files[]" multiple />
+                                    ...
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="ipost">
+                                    <output id="list" class="OutImage"></output>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div id="iddescpost" class='editor' contenteditable='true' style="height:100%;">
+                                 </div>
+                            </li>
+                            
+                            <li>
+                                <button id="btnS" class="ladda-button" data-style="zoom-out">
+                                    Enviar
+                                </button> 
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!--/#Metas.form-action ----------------------------------------------------------------------------------------------------------- -->
+                <div id="register" class="form-action hide">
+                    <h1>Metas</h1>
+                    <p>
+                        Ingresa una imagen de los valores de las metas despues de una descricion
+                    </p>
+                    <form>
+                        <ul>
+                            <li>
+                                <input style="font-weight: bolder;" type="text" placeholder="Titulo" />
+                                <div class="lpost">  </div>
+                                <div class="custom-input-file">
+                                    <input class="input-file" type="file" id="files2" name="files2[]" multiple />
+                                    ...
+                                </div>
+
+                            </li>
+                            <li>
+                                <div id="ipost2" class="ipost">
+                                    <output id="list2" class="OutImage"></output>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="textpost" placeholder="Descripcion" contenteditable='true'></div>
+                            </li>
+                            
+                            <li>
+                                <br />
+                                <button id="btnS" class="ladda-button" data-style="zoom-out">
+                                    Enviar
+                                    </button> 
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            (function ($) {
+                var SHOW_CLASS = 'show',
+                    HIDE_CLASS = 'hide',
+                    ACTIVE_CLASS = 'active';
+
+                $('.tabs').on('click', 'li a',
+
+                function (e) {
+                    e.preventDefault();
+                    var $tab = $(this),
+                    href = $tab.attr('href');
+
+                    $('.active').removeClass(ACTIVE_CLASS);
+                    $tab.addClass(ACTIVE_CLASS);
+
+                    $('.show')
+                        .removeClass(SHOW_CLASS)
+                        .addClass(HIDE_CLASS)
+                        .hide();
+
+                    $(href)
+                        .removeClass(HIDE_CLASS)
+                        .addClass(SHOW_CLASS)
+                        .hide()
+                        .fadeIn(550);
+                });
+            })(jQuery);
+        </script>
+
     <script src="https://apis.google.com/js/client.js?onload=init">
         function load() {
             init();
         }
     </script>
-    
     <script src="/js/alertify.min.js"></script>
     <script src="/js/spin.min.js"></script> 
     <script src="/js/ladda.min.js"></script>
+    {% endblock %}
+    <script src="/js/jquery.sidr.min.js"></script>
 </body>
 
 </html>
-
-
-<style>
-    
-    #topBar, #topBar{
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-    
-    #topBar {
-        width: 100%;
-        height: 10%;
-        background-image: linear-gradient(rgba(211, 211, 211, 0.33), rgba(211, 211, 211, 0.33));
-        position: absolute;
-        top: 0%;
-        left: 0%;
-    }
-    
-    #menu, #menu{
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-    
-    #menu {
-    width: 100%;
-    border: 1px solid rgba(183, 7, 43, 1);
-    background-image: linear-gradient(rgba(183, 7, 43, 1), rgba(183, 7, 43, 1));
-    box-shadow: 0 1px 1px rgba(183, 7, 43, 1);
-    position: absolute;
-    top: 10%;
-    left: 0%;
-    }
-    
-    #menu:before,
-    #menu:after {
-    content: "";
-    display: table;
-    }
-
-    #menu:after {
-    clear: both;
-    }
-
-    #menu {
-    zoom:1;
-    }
-    
-    
-    #menu li {
-    float: left;
-    border-right: 1px solid white;
-    position: relative;
-    }
-
-    #menu a {
-    float: left;
-    padding: 12px 30px;
-    color: white;
-    text-transform: uppercase;
-    font: bold 12px Arial, Helvetica;
-    text-decoration: none;
-    text-shadow: 0 1px 0 #000;
-    }
-
-    #menu li:hover > a { /*Cuando se selecciona el item, cambiar de color a gris claro*/
-    color:lightgray;
-    }
-
-    *html #menu li a:hover { /* IE6 only */
-    color: #fafafa;
-    }
-    
-    #menu ul {
-    margin: 20px 0 0 0;
-    _margin: 0; /*IE6 only*/
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    top: 38px;
-    left: 0;
-    z-index: 1;    
-    background: #444;   
-    background: linear-gradient(lightgray, gray );
-    box-shadow: 0 -1px 0 rgba(255,255,255,.3);  
-    border-radius: 3px;
-    transition: all .2s ease-in-out;
-}
-
-#menu li:hover > ul {
-    opacity: 1;
-    visibility: visible;
-    margin: 0;
-}
-
-#menu ul ul {
-    top: 0;
-    left: 150px;
-    margin: 0 0 0 20px;
-    _margin: 0; /*IE6 only*/
-    box-shadow: -1px 0 0 rgba(255,255,255,.3);      
-}
-
-#menu ul li {
-    float: none;
-    display: block;
-    border: 0;
-    _line-height: 0; /*IE6 only*/
-    box-shadow: 0 1px 0 #111, 0 2px 0 #666;
-}
-
-#menu ul li:last-child {   
-    box-shadow: none;    
-}
-
-#menu ul a {    
-    padding: 10px;
-    width: 130px;
-    _height: 10px; /*IE6 only*/
-    display: block;
-    white-space: nowrap;
-    float: none;
-    text-transform: none;
-}
-
-#menu ul a:hover {
-    background-color: #0186ba;
-    background-image: linear-gradient(#04acec, #0186ba);
-}
-#menu ul li:first-child > a {
-    border-radius: 3px 3px 0 0;
-}
-
-#menu ul li:first-child > a:after {
-    content: '';
-    position: absolute;
-    left: 40px;
-    top: -6px;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid #444;
-}
-
-#menu ul ul li:first-child a:after {
-    left: -6px;
-    top: 50%;
-    margin-top: -6px;
-    border-left: 0; 
-    border-bottom: 6px solid transparent;
-    border-top: 6px solid transparent;
-    border-right: 6px solid #3b3b3b;
-}
-
-#menu ul li:first-child a:hover:after {
-    border-bottom-color: #04acec; 
-}
-
-#menu ul ul li:first-child a:hover:after {
-    border-right-color: #0299d3; 
-    border-bottom-color: transparent;   
-}
-
-#menu ul li:last-child > a {
-    border-radius: 0 0 3px 3px;
-}
-
-</style>
-
-
-

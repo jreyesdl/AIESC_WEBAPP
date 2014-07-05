@@ -46,8 +46,7 @@ class newPost(Handler,blobstore_handlers.BlobstoreUploadHandler):
         user = users.get_current_user()
         if user:
             logouthref = '%s' % users.create_logout_url('/')
-            #upload_url = blobstore.create_upload_url('/upload')
-            self.render('newpost.html',logouthref = logouthref,email=user.nickname())
+            self.render('newpost.html',logouthref = logouthref,email=user.email())
         else:
             self.redirect(users.create_logout_url('/'))
     def post(self):
@@ -62,18 +61,44 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     blob_info = upload_files[0]
     self.redirect('/serve/%s' % blob_info.key())
         
-
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, resource):
         resource = str(urllib.unquote(resource))
-        #self.render(permalink.html, image_src = resource)
         blob_info = blobstore.BlobInfo.get(resource)
         self.send_blob(blob_info)
+
+class TimelineHandler(Handler): 
+    def get(self):
+        user = users.get_current_user()
+        if user:
+            self.render('timeline.html')
+        else:
+            self.redirect(users.create_logout_url('/'))
+    def post(self):
+         self.response.headers['Content-Type'] = 'application/json'
+
+
+class postsHandler(Handler):
+    def get(self,id):
+        user = users.get_current_user()
+        if user:
+            logouthref = '%s' % users.create_logout_url('/')
+            self.render('posts.html',image=id,logouthref = logouthref,email=user.email())
+        else:
+            self.redirect(users.create_logout_url('/'))
+    def post(self, resource):
+        user = users.get_current_user()
+        self.response.headers['Content-Type'] = 'application/json'
+        jUser = {'userID': user.user_id(),'userMail': user.email()}
+        self.response.out.write(json.dumps(jUser))
     
 app = webapp2.WSGIApplication([
     ('/', login),
     ('/newpost', newPost),
     ('/upload', UploadHandler),
-    ('/serve/([^/]+)?',  ServeHandler)],
+    ('/serve/([^/]+)?',  ServeHandler),
+    ('/posts/([^/]+)?', postsHandler),
+    ('/timeline', TimelineHandler)
+    ],
     debug=True) 
 
