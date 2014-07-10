@@ -22,6 +22,16 @@ function createTable(title,user,description,image,date,key) {
         <tr><td></td></tr> \
         <tr><td></td></tr> \
         <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
+        <tr><td></td></tr> \
         <tr style="border-spacing:1px; padding-bottom:1em;"> \
             <td width="30%" height="5"></td> \
             <td colspan="2" style="vertical-align:text-bottom;font-size:x-large"> \
@@ -45,12 +55,12 @@ function createTable(title,user,description,image,date,key) {
             <td height="124"></td> \
             <td colspan="2"> \
                 <span style="text-align: center"></span> \
-                <div class="divimage" id="divimage" style="text-align: center"><img id="img" src="'+image+'" width="100%" height="450" /></div> \
+                <div class="divimage" id="divimage" style="text-align: center"><img id="img" src="'+image+'" width="100%" height="auto" /></div> \
             <td></td> \
         </tr> \
         <tr> \
             <td></td> \
-            <td colspan="2" style="text-align:justify;"">' + description + '</td> \
+            <td colspan="2" style="text-align:justify;">' + description + '</td> \
             <td></td> \
         </tr> \
         <tr> \

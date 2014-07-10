@@ -8,8 +8,8 @@ google.project.aiesec.SCOPES = 'https://www.googleapis.com/auth/userinfo.email';
 google.project.aiesec.CLIENT_ID = '701424510160-upb8hkmvcem4kg7dgqi14a144q7ted5e.apps.googleusercontent.com';
 google.project.aiesec.RESPONSE_TYPE = 'token id_token';
 google.project.aiesec.signedIn = false;
-//google.project.aiesec.ROOT = 'https://aiesecapi.appspot.com/_ah/api';
-google.project.aiesec.ROOT = 'http://localhost:1234/_ah/api';
+google.project.aiesec.ROOT = 'https://aiesecapi.appspot.com/_ah/api';
+//google.project.aiesec.ROOT = 'http://localhost:1234/_ah/api';
 
 
 function returnPost(key) {

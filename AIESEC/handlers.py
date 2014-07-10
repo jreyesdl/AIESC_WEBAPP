@@ -71,7 +71,8 @@ class TimelineHandler(Handler):
     def get(self):
         user = users.get_current_user()
         if user:
-            self.render('timeline.html')
+            logouthref = '%s' % users.create_logout_url('/')
+            self.render('timeline.html',logouthref = logouthref,email = user.email())
         else:
             self.redirect(users.create_logout_url('/'))
     def post(self):
