@@ -3,6 +3,7 @@ from google.appengine.api import images
 from google.appengine.api import files
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
+from google.appengine.api import memcache
 from google.appengine.api.images import get_serving_url
 from google.appengine.ext.webapp import blobstore_handlers
 
@@ -12,9 +13,31 @@ import os
 import webapp2
 import jinja2
 import json
+import logging
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape=True)
+
+
+class User(ndb.Model):
+    usermail = ndb.StringProperty()
+    info = ndb.StringProperty()
+   
+    @staticmethod
+    def get_user(email):
+        mem_key = 'user'
+        user_key = ndb.Key('AIESEC','User')
+        user = memcache.get(mem_key)
+         
+        if user is None:
+            user = ndb.gql("SELECT * FROM User WHERE ANCESTOR IS :1",user_key)
+            logging.debug('Usuario:%s'%user)
+            user = list(user)
+            memcache.set(mem_key,user)
+         
+        result = [x[1] for x in enumerate(user) if x[1].usermail == email]
+        logging.debug(result)
+        return result
 
 class Handler(webapp2.RequestHandler):
     
@@ -34,21 +57,35 @@ class login(Handler):
         self.render('Login.html')
         user = users.get_current_user()
         if user:
-            if(functions.auth_user(user.email())):
-                self.redirect('/newpost')
-            else:
-                self.redirect(users.create_logout_url('/'))
+            #if(functions.auth_user(user.email())):
+                #if User.get_user(user.email()):
+                    self.redirect('/newpost')
+                #else: 
+                #    self.redirect('/timeline')
+            #else:
+            #    self.redirect(users.create_logout_url('/'))
     def post(self):
         self.redirect(users.create_login_url(self.request.uri))
-        
+       
+class loginj(Handler):
+    def get(self):
+        user = users.get_current_user()
+        self.response.content_type = 'application/json'
+        jUser = {'userID': user.user_id(),'userMail': user.email()}
+        self.response.out.write(json.dumps(jUser))
+
 class newPost(Handler,blobstore_handlers.BlobstoreUploadHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            logouthref = '%s' % users.create_logout_url('/')
-            self.render('newpost.html',logouthref = logouthref,email=user.email())
-        else:
-            self.redirect(users.create_logout_url('/'))
+            #if functions.auth_user(user.email()):
+                logouthref = '%s' % users.create_logout_url('/')
+                #if User.get_user(user.email()):
+                self.render('newpost.html',logouthref = logouthref,email=user.email())
+                #else:
+                #    self.redirect('/timeline')
+        #else:
+        #    self.redirect(users.create_logout_url('/'))
     def post(self):
         user = users.get_current_user()
         self.response.headers['Content-Type'] = 'application/json'
@@ -99,7 +136,7 @@ app = webapp2.WSGIApplication([
     ('/upload', UploadHandler),
     ('/serve/([^/]+)?',  ServeHandler),
     ('/posts/([^/]+)?', postsHandler),
-    ('/timeline', TimelineHandler)
+    ('/timeline', TimelineHandler),
+    ('/loginj', loginj)
     ],
     debug=True) 
-

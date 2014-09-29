@@ -11,7 +11,7 @@ google.project.aiesec.signedIn = false;
 google.project.aiesec.ROOT = 'https://aiesecapi.appspot.com/_ah/api';
 //google.project.aiesec.ROOT = 'http://localhost:1234/_ah/api';
 
-function createTable(title,user,description,image,date,key) {
+function createTable(title,user,description,image,date,key,count) {
     var table = ' \
     \
     <table style="width:100%;" border="0"> \
@@ -66,7 +66,7 @@ function createTable(title,user,description,image,date,key) {
         <tr> \
             <td></td> \
             <td style="color: #999;">'+date+'</td> \
-            <td style="text-align: right"><em>Comentarios (0)</em> \
+            <td style="text-align: right"><em>Comentarios ('+count+')</em> \
             <td></td> \
         </tr> \
 </table>'
@@ -84,7 +84,7 @@ function loadFirstPage() {
                 for (var i = 0; i < resp.items.length; i++) {
                     post = createTable(resp.items[i].title, resp.items[i].ownerEmail,
                                         atob(resp.items[i].text), resp.items[i].image,
-                                        resp.items[i].date,resp.items[i].key);
+                                        resp.items[i].date, resp.items[i].key, resp.items[i].commentsCount);
                     $("form").append(post);
                 }          
             }
@@ -129,7 +129,7 @@ function loadNextPage(cursor) {
                 for (var i = 0; i < resp.items.length; i++) {
                     post = createTable(resp.items[i].title, resp.items[i].ownerEmail,
                                          atob(resp.items[i].text), resp.items[i].image,
-                                         resp.items[i].date,resp.items[i].key);
+                                         resp.items[i].date, resp.items[i].key, resp.items[i].commentsCount);
                     $("form").append(post);
                 }
             }

@@ -9,7 +9,6 @@ google.project.aiesec.CLIENT_ID = '701424510160-upb8hkmvcem4kg7dgqi14a144q7ted5e
 google.project.aiesec.RESPONSE_TYPE = 'token id_token';
 google.project.aiesec.signedIn = false;
 google.project.aiesec.ROOT = 'https://aiesecapi.appspot.com/_ah/api';
-//google.project.aiesec.ROOT = 'http://localhost:1234/_ah/api';
 
 
 function returnPost(key) {
@@ -21,6 +20,7 @@ function returnPost(key) {
             $('#ltitle').append(resp.title);
             $('#lfecha').append(resp.date);
             $('#luser').append(resp.ownerEmail);
+            $('#comentarios').append('<em >Comentarios (' + resp.commentsCount + ') </em>')
             setDivH();
         }
     })
@@ -38,7 +38,7 @@ function addComment(text, email, date){
                 <tr> \
                 <td></td> \
                 <td style="color: #999;">' + email + '</td> \
-                <td style="text-align:right;color: #999;">' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + '</td> \
+                <td style="text-align:right;color: #999;">' + date + '</td> \
                 <td></td> \
                 </tr> \
             ';
@@ -69,7 +69,7 @@ function loadNextPage(postID,nextPageToken) {
     gapi.client.userAPI.comment.list({'PageToken': nextPageToken, 'postID': String(postID) }).execute(function (resp) {
         if (resp.items) {
             for (var i = 0; i < resp.items.length; i++) {
-                addComment(resp.items[i].text, resp.items[i].owner, new Date(resp.items[i].date));
+                addComment(resp.items[i].text, resp.items[i].owner, resp.items[i].date);
             }
         }
         if (resp.next) {
@@ -86,7 +86,7 @@ function loadFirstCommentList(postID) {
     gapi.client.userAPI.comment.list({ 'postID': String(postID) }).execute(function (resp) {
         if (resp.items) {
             for (var i = 0; i < resp.items.length; i++) {
-                addComment(resp.items[i].text, resp.items[i].owner, new Date(resp.items[i].date));
+                addComment(resp.items[i].text, resp.items[i].owner, resp.items[i].date);
             }
         }
         if (resp.next) {

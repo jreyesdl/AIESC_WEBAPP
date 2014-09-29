@@ -6,8 +6,7 @@ class functions():
     @staticmethod
     #Check if the user uses an aiesec account
     def auth_user(user):
-        #email_rexp = re.compile(r'^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@unis.edu.gt')
-        email_rexp = re.compile(r'^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@gmail.com')
+        email_rexp = re.compile(r'^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@aiesec.net')
         return email_rexp.match(user)
     
     @staticmethod

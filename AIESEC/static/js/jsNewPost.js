@@ -9,7 +9,6 @@ google.project.aiesec.CLIENT_ID = '701424510160-upb8hkmvcem4kg7dgqi14a144q7ted5e
 google.project.aiesec.RESPONSE_TYPE = 'token id_token';
 google.project.aiesec.signedIn = false;
 google.project.aiesec.ROOT = 'https://aiesecapi.appspot.com/_ah/api';
-//google.project.aiesec.ROOT = 'http://localhost:1234/_ah/api';
 
 //API calls
 
@@ -39,22 +38,13 @@ function insertPost(title,img,post,userID) {
 }
 
 //Insert new user
-function insertUser(user_id,email,user,university,state) {
+function insertUser(user_id,email,user) {
     gapi.client.userAPI.user.insert({
         'user_id': user_id,
-        'email': email,
-        'user': user,
-        'university': university,
-        'state': state
-    }).execute(
-        function (resp) {
-            if (!resp.code) {
-                alert("User added");
-            }
-        }
-    )
+        'email': email
+    }).execute()
 }
-                        
+
 function onError(){
     var l = Ladda.create( document.querySelector( 'button' ) );
     l.stop();
@@ -121,6 +111,23 @@ $(document).ready(function(){
     });
 });
 
+function loadUser() {
+    $.ajax({
+        url: '/loginj',
+        async: false,
+        type: 'GET',
+        cache: false, 
+        data: '',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data, status, xhr) {
+            console.log(data.userID);
+            console.log(data.userMail);
+            insertUser(data.userID, data.userMail);
+        }
+    });
+};
+
 $(document).ready(function(){
 $('#li1').click(function() {
     $('#li2').removeClass('selected');
@@ -152,11 +159,16 @@ function handleFileSelect(evt){
 }
 
 function init() {
-    var callback = function(){
-        document.getElementById('files').addEventListener('change', handleFileSelect, false);
-        
-        $(".editor").popline();
-        $(".editor").popline({position: 'fixed'});
+    var apisToLoad; 
+    var callback = function () {
+        if (--apisToLoad == 0) {
+            document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+            $(".editor").popline();
+            $(".editor").popline({ position: 'fixed' });
+            loadUser();
+        }
     }
-    gapi.client.load('userAPI','v1',callback, google.project.aiesec.ROOT);
+    apisToLoad = 1;
+    gapi.client.load('userAPI', 'v1', callback, google.project.aiesec.ROOT);
 }
